@@ -1,12 +1,15 @@
 package main;
 
 import logic.IoExecutor;
-
 import static java.lang.System.out;
 
+import org.apache.log4j.Logger;
+
 public class ThoughtForTheDay {
+        static Logger log = Logger.getLogger(ThoughtForTheDay.class.getName());
+
         public static  void main (String args[]){
-        out.println("Inside Main method");
+        log.info("Inside Main method");
         IoExecutor ioExecutor=new IoExecutor();
         String inputText=ioExecutor.readFileWrapper();
         ioExecutor.createFile();

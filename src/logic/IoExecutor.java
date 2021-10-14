@@ -1,13 +1,23 @@
 package  logic;
+
 import constants.IOConstants;
 import java.io.*;
 import static java.lang.System.out;
 
+import org.apache.log4j.Logger;
+
 public class IoExecutor{
+
+    static Logger log = Logger.getLogger(IoExecutor.class.getName());
+
     public static final String FILE_ABS_PATH = new File("").getAbsolutePath();
     public static int count=1;
+
+    /*This is a wrapper file which does 2 things
+    * 1. Get inputs from user from console
+    * 2. Based in input create the Reader Obj and read the input from console stream or saved file*/
     public String readFileWrapper(){
-        out.println("Inside readFileWrapper method");
+        log.info("Inside readFileWrapper method");
         String returnValue="";
         int userInput=getInputFromUser();
         out.println("userInput is: "+userInput);
@@ -18,7 +28,7 @@ public class IoExecutor{
         else if(userInput==IOConstants.NUMBER_TWO_ASCII){
             FileReader obj=null;
             try {
-                obj = new FileReader(FILE_ABS_PATH + "/static/change.log");
+                obj = new FileReader(FILE_ABS_PATH + "/static/change.txt");
                 returnValue= readFile(obj);
                 obj.close();
             }catch (IOException | ClassCastException e){
