@@ -1,35 +1,21 @@
+package  logic;
+import constants.IOConstants;
 import java.io.*;
-import static  java.lang.System.out;
+import static java.lang.System.out;
 
-public class ThoughtForTheDay {
-    public static final String FILE_OUT_PATH="\\out\\production\\Oct1_IO_DEMO\\Thoughts";
-    public static int count=0;
-    public static final String DOT_TXT=".txt";
+public class IoExecutor{
     public static final String FILE_ABS_PATH = new File("").getAbsolutePath();
-    public static final String STOP_INPUT="$STOP";
-    public static final int NUMBER_ONE_ASCII=49;
-    public static final int NUMBER_TWO_ASCII=50;
-
-    public static  void main (String args[]){
-        out.println("Inside Main method");
-        count++;
-        ThoughtForTheDay helloWorld=new ThoughtForTheDay();
-        String inputText=helloWorld.readFileWrapper();
-        helloWorld.createFile();
-        helloWorld.writeFile(inputText);
-        out.println("Exiting Main method");
-    }
-
+    public static int count=1;
     public String readFileWrapper(){
         out.println("Inside readFileWrapper method");
         String returnValue="";
         int userInput=getInputFromUser();
         out.println("userInput is: "+userInput);
-        if(userInput==NUMBER_ONE_ASCII){
+        if(userInput== IOConstants.NUMBER_ONE_ASCII){
             InputStreamReader obj = new InputStreamReader(System.in);
             returnValue= readFile(obj);
         }
-        else if(userInput==NUMBER_TWO_ASCII){
+        else if(userInput==IOConstants.NUMBER_TWO_ASCII){
             FileReader obj=null;
             try {
                 obj = new FileReader(FILE_ABS_PATH + "/static/change.log");
@@ -39,7 +25,7 @@ public class ThoughtForTheDay {
                 out.println("Exception in readFileWrapper method: " + e);
             }finally {
                 try{
-                obj.close();
+                    obj.close();
                 }catch (Exception e){
                     out.println("Unrecoverable Exception in readFileWrapper method: " + e);
                     e.printStackTrace();
@@ -71,7 +57,7 @@ public class ThoughtForTheDay {
         return stringBuilder.toString();
     }
     /*This is an overloaded method
-    * This version taken input from user console*/
+     * This version taken input from user console*/
     public String readFile(InputStreamReader inputStreamReader) {
         out.println("Inside readFile method");
         out.println("inputStreamReader instanceof InputStreamReader: "+(inputStreamReader instanceof InputStreamReader));
@@ -79,9 +65,9 @@ public class ThoughtForTheDay {
         StringBuilder stringBuilder = new StringBuilder();
         out.print("Enter the \"Thought For the Day\": ");
         try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-            while (!STOP_INPUT.equals(line)) {
+            while (!IOConstants.STOP_INPUT.equals(line)) {
                 line = bufferedReader.readLine();
-                if(!STOP_INPUT.equals(line)) {
+                if(!IOConstants.STOP_INPUT.equals(line)) {
                     stringBuilder.append(line + "\r\n");
                 }
             }
@@ -96,7 +82,7 @@ public class ThoughtForTheDay {
         out.println("Inside createFile method");
         boolean isCreated=false;
         try{
-            File myNewFileCreated = new File(FILE_ABS_PATH+FILE_OUT_PATH+count+DOT_TXT);
+            File myNewFileCreated = new File(FILE_ABS_PATH+IOConstants.FILE_OUT_PATH+count+IOConstants.DOT_TXT);
             isCreated=myNewFileCreated.createNewFile();
             if(isCreated) {
                 out.println("File created: " + myNewFileCreated.getName());
@@ -111,7 +97,7 @@ public class ThoughtForTheDay {
     public void writeFile(String inputText){
         out.println("Inside writeFile method");
         try{
-            FileWriter openedNewFile= new FileWriter(FILE_ABS_PATH+FILE_OUT_PATH+count+DOT_TXT);
+            FileWriter openedNewFile= new FileWriter(FILE_ABS_PATH+IOConstants.FILE_OUT_PATH+count+IOConstants.DOT_TXT);
             openedNewFile.write(inputText);
             openedNewFile.close();
         }catch (IOException | ClassCastException e) {
