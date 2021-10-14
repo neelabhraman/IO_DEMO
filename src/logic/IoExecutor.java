@@ -22,6 +22,7 @@ public class IoExecutor{
         int userInput=getInputFromUser();
         log.info("userInput is: "+userInput);
         if(userInput== IOConstants.NUMBER_ONE_ASCII){
+            out.println(IOConstants.USER_OPTION_1_CONT);
             InputStreamReader obj = new InputStreamReader(System.in);
             returnValue= readFile(obj);
         }
@@ -123,8 +124,8 @@ public class IoExecutor{
 
     public int getInputFromUser(){
         int userInput=-1;
-        out.println("Press 1 to Enter new Thought");
-        out.println("Press 2 to copy file from the path /static");
+        out.println(IOConstants.USER_OPTION_1);
+        out.println(IOConstants.USER_OPTION_2);
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             userInput = bufferedReader.read();
