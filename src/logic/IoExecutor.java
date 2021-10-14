@@ -78,9 +78,9 @@ public class IoExecutor{
         StringBuilder stringBuilder = new StringBuilder();
         out.print("Enter the \"Thought For the Day\": ");
         try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-            while (!IOConstants.STOP_INPUT.equals(line)) {
+            while (!IOConstants.STOP_INPUT.equalsIgnoreCase(line)) {
                 line = bufferedReader.readLine();
-                if(!IOConstants.STOP_INPUT.equals(line)) {
+                if(!IOConstants.STOP_INPUT.equalsIgnoreCase(line)) {
                     stringBuilder.append(line + "\r\n");
                 }
             }
