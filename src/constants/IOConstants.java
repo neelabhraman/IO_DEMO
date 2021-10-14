@@ -5,4 +5,5 @@ public class IOConstants {
     public static final String STOP_INPUT="$STOP";
     public static final int NUMBER_ONE_ASCII=49;
     public static final int NUMBER_TWO_ASCII=50;
+    public static final String FILE_INPUT_PATH="/static/change.txt";
 }

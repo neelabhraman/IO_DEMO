@@ -20,7 +20,7 @@ public class IoExecutor{
         log.info("Inside readFileWrapper method");
         String returnValue="";
         int userInput=getInputFromUser();
-        out.println("userInput is: "+userInput);
+        log.info("userInput is: "+userInput);
         if(userInput== IOConstants.NUMBER_ONE_ASCII){
             InputStreamReader obj = new InputStreamReader(System.in);
             returnValue= readFile(obj);
@@ -28,17 +28,18 @@ public class IoExecutor{
         else if(userInput==IOConstants.NUMBER_TWO_ASCII){
             FileReader obj=null;
             try {
-                obj = new FileReader(FILE_ABS_PATH + "/static/change.txt");
+                obj = new FileReader(FILE_ABS_PATH + IOConstants.FILE_INPUT_PATH);
                 returnValue= readFile(obj);
                 obj.close();
             }catch (IOException | ClassCastException e){
                 out.println("Exception in readFileWrapper method: " + e);
+                log.error("Exception in readFileWrapper method: " + e);
             }finally {
                 try{
                     obj.close();
                 }catch (Exception e){
                     out.println("Unrecoverable Exception in readFileWrapper method: " + e);
-                    e.printStackTrace();
+                    log.error("Unrecoverable Exception in readFileWrapper method: " + e);
                 }
             }
         }
@@ -46,14 +47,14 @@ public class IoExecutor{
             out.println("Invalid Input Provided");
             System.exit(-1);
         }
-        out.println("Exiting readFileWrapper method");
+        log.info("Exiting readFileWrapper method");
         return returnValue;
     }
     /*This is an overloaded method
      * This version takes input from file stream*/
     public String readFile(FileReader fileReader) {
-        out.println("Inside readFile method");
-        out.println("fileReader instanceof FileReader: "+ (fileReader instanceof FileReader));
+        log.info("Inside readFile method");
+        log.info("fileReader instanceof FileReader: "+ (fileReader instanceof FileReader));
         String line;
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -62,15 +63,16 @@ public class IoExecutor{
             }
         } catch (IOException | ClassCastException e) {
             out.println("Exception in readFile method: " + e);
+            log.error("Exception in readFile method: " + e);
         }
-        out.println("Exiting readFile method");
+        log.info("Exiting readFile method");
         return stringBuilder.toString();
     }
     /*This is an overloaded method
      * This version taken input from user console*/
     public String readFile(InputStreamReader inputStreamReader) {
-        out.println("Inside readFile method");
-        out.println("inputStreamReader instanceof InputStreamReader: "+(inputStreamReader instanceof InputStreamReader));
+        log.info("Inside readFile method");
+        log.info("inputStreamReader instanceof InputStreamReader: "+(inputStreamReader instanceof InputStreamReader));
         String line="";
         StringBuilder stringBuilder = new StringBuilder();
         out.print("Enter the \"Thought For the Day\": ");
@@ -83,37 +85,40 @@ public class IoExecutor{
             }
         } catch (Exception e) {
             out.println("Exception in readFile method: " + e);
+            log.error("Exception in readFile method: " + e);
         }
-        out.println("Exiting readFile method");
+        log.info("Exiting readFile method");
         return stringBuilder.toString();
     }
     /*This will create a file if not present, if present will not do anything*/
     public boolean createFile(){
-        out.println("Inside createFile method");
+        log.info("Inside createFile method");
         boolean isCreated=false;
         try{
             File myNewFileCreated = new File(FILE_ABS_PATH+IOConstants.FILE_OUT_PATH+count+IOConstants.DOT_TXT);
             isCreated=myNewFileCreated.createNewFile();
             if(isCreated) {
-                out.println("File created: " + myNewFileCreated.getName());
+                log.info("File created: " + myNewFileCreated.getName());
             }
         }catch (IOException | ClassCastException e){
             out.println("Exception in createFile method: " + e);
+            log.error("Exception in createFile method: " + e);
         }
-        out.println("Exiting createFile method");
+        log.info("Exiting createFile method");
         return isCreated;
     }
     /*This will write the file to the output directory*/
     public void writeFile(String inputText){
-        out.println("Inside writeFile method");
+        log.info("Inside writeFile method");
         try{
             FileWriter openedNewFile= new FileWriter(FILE_ABS_PATH+IOConstants.FILE_OUT_PATH+count+IOConstants.DOT_TXT);
             openedNewFile.write(inputText);
             openedNewFile.close();
         }catch (IOException | ClassCastException e) {
             out.println("Exception in writeFile method: " + e);
+            log.error("Exception in writeFile method: " + e);
         }
-        out.println("Exiting writeFile method");
+        log.info("Exiting writeFile method");
     }
 
     public int getInputFromUser(){
@@ -126,6 +131,7 @@ public class IoExecutor{
         }
         catch (IOException e) {
             out.println("Exception in getInputFromUser method: " + e);
+            log.error("Exception in getInputFromUser method: " + e);
         }
         return userInput;
     }

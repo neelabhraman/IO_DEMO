@@ -1,7 +1,6 @@
 package main;
 
 import logic.IoExecutor;
-import static java.lang.System.out;
 
 import org.apache.log4j.Logger;
 
@@ -14,7 +13,7 @@ public class ThoughtForTheDay {
         String inputText=ioExecutor.readFileWrapper();
         ioExecutor.createFile();
         ioExecutor.writeFile(inputText);
-        out.println("Exiting Main method");
+        log.info("Exiting Main method");
     }
 
 
